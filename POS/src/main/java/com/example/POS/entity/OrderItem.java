@@ -1,10 +1,5 @@
 package com.example.POS.entity;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,25 +13,25 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Item {
-
+public class OrderItem {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String itemName;
-
-    private Double price;
-
-    private Integer qty;
-
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    @OneToOne(mappedBy = "item")
-    @JsonIgnore
-    private OrderItem orderItem;
+    @OneToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
+    
+    private Double orderQty;
+
+    private Double itemPrice;
+
+    
+
 
 }
