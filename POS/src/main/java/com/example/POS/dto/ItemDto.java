@@ -11,5 +11,5 @@ public class ItemDto {
     private String itemName;
     private Double price;
     private Integer qty;
-    private Long itemId;
+    private Long categoryId;
 }
