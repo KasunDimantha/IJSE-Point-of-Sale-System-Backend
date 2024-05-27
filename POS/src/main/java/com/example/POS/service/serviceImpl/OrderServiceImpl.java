@@ -31,6 +31,18 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public Order updateOrder(Long id, Order order) {
+        Order existingOrder = orderRepository.findById(id).orElse(null);
+        
+        if (existingOrder != null) {
+            existingOrder.setTotalPrice(order.getTotalPrice());
+            return orderRepository.save(existingOrder);
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public void deleteOrder(Long id) {
         orderRepository.deleteById(id);
     }
