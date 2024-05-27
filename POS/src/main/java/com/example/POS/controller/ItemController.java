@@ -30,13 +30,23 @@ public class ItemController {
     private CategoryService categoryService;
 
     @PostMapping("/item")
-    public ResponseEntity<Item> addItem(@RequestBody Item item){
-        Item newItem = itemService.addItem(item);
+    public ResponseEntity<Item> addItem(@RequestBody ItemDto itemDto){
+        
+        Item item = new Item();
 
-        if(newItem != null){
-            return ResponseEntity.status(200).body(newItem);
+        item.setItemName(itemDto.getItemName());
+        item.setPrice(itemDto.getPrice());
+        item.setQty(itemDto.getQty());
+
+        Category category = categoryService.getCategoryById(itemDto.getCategoryId());
+        item.setCategory(category);
+
+        Item addedItem = itemService.addItem(item);
+
+        if(addedItem != null){
+            return ResponseEntity.status(200).body(addedItem);
         } else{
-            return ResponseEntity.status(400).build();
+            return ResponseEntity.status(400).build(); 
         }
     }
 
