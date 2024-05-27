@@ -3,6 +3,7 @@ package com.example.POS.service.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.POS.entity.Item;
 import com.example.POS.entity.Order;
@@ -12,6 +13,7 @@ import com.example.POS.repository.OrderItemRepository;
 import com.example.POS.repository.OrderRepository;
 import com.example.POS.service.OrderitemService;
 
+@Service
 public class OrderitemServiceImpl implements OrderitemService{
      
     @Autowired
@@ -24,7 +26,12 @@ public class OrderitemServiceImpl implements OrderitemService{
     private OrderRepository orderRepository;
 
     @Override
-    public List<OrderItem> getAllProductByOrderId(Order order) {
+    public List<OrderItem> getAllProductByOrderId(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        
+        if(order == null){
+            return null;
+        }
         return orderItemRepository.findByOrder(order);
     }
 
