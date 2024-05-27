@@ -12,6 +12,5 @@ public class OrderItemDto {
     private Long itemId;
     private Double orderQty;
     private Double itemPrice;
-    private Double totalPrice;
 
 }

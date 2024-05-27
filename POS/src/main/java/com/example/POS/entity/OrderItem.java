@@ -31,9 +31,4 @@ public class OrderItem {
 
     private Double itemPrice;
 
-    private Double totalPrice;
-
-    
-
-
 }
