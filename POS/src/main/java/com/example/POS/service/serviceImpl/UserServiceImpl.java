@@ -3,7 +3,7 @@ package com.example.POS.service.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.POS.entity.User;
@@ -15,6 +15,9 @@ public class UserServiceImpl implements UserService{
     
     @Autowired
     private UserReposittory userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAllUsers() {
@@ -28,6 +31,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User createUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
